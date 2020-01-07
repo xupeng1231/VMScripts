@@ -4,7 +4,18 @@ import random
 import sys
 import traceback
 import shutil
-from vm_path import fuzz_alive_flag_path, sample_dir, crash_dir
+
+base_dir = 'C:\\Users\\Vulnerability\\Desktop\\AbstractFuzz\\'
+script_dir_path = os.path.join(base_dir, 'scripts')
+flag_dir = os.path.join(base_dir, 'scripts', 'alive_flag')
+if not os.path.exists(flag_dir):
+    os.mkdir(flag_dir)
+fuzz_alive_flag_path = os.path.join(base_dir, 'scripts', 'alive_flag', 'vm_fuzz.alive.flag')
+
+
+sample_dir = 'Z:\\samples'
+crash_dir = 'Z:\\crashes'
+
 
 
 base_dir = 'C:\\Users\\Vulnerability\\Desktop\\AbstractFuzz\\'
@@ -80,17 +91,17 @@ def sample_test():
               '{windbg_script_path} {flag_path} {log_path}" -o' \
               ' "{acrord32_exe_path}" "{pdf_path}"'.format(
                 windbg_path=windbg_path, windbg_script_path=windbg_script_path,
-                flag_path=flag_path, log_path=adobe_log_path, acrord32_exe_path=acrord32_exe_path, pdf_path=pdf_path)
+                flag_path=flag_path, log_path=adobe_log_path, acrord32_exe_path=acrord32_exe_path, pdf_path=sample_path)
         foxit_cmd = 'start "" "{windbg_path}"  -c ".load pykd;!py ' \
               '{windbg_all_process_script_path} {flag_path} {log_path}" -o' \
               ' "{foxit_exe_path}" "{pdf_path}"'.format(
                  windbg_path=windbg_path, windbg_all_process_script_path=windbg_all_process_script_path,
-                flag_path=flag_path, log_path=foxit_log_path, foxit_exe_path=foxit_exe_path, pdf_path=pdf_path)
+                flag_path=flag_path, log_path=foxit_log_path, foxit_exe_path=foxit_exe_path, pdf_path=sample_path)
         wps_cmd = 'start "" "{windbg_path}"  -c ".load pykd;!py ' \
                     '{windbg_all_process_script_path} {flag_path} {log_path}" -o' \
                     ' "{wps_exe_path}" "{pdf_path}"'.format(
             windbg_path=windbg_path, windbg_all_process_script_path=windbg_all_process_script_path,
-            flag_path=flag_path, log_path=wps_log_path, wps_exe_path=wps_exe_path, pdf_path=pdf_path)
+            flag_path=flag_path, log_path=wps_log_path, wps_exe_path=wps_exe_path, pdf_path=sample_path)
         cmds = (adobe_cmd, foxit_cmd)
         cmd_names = ('adobe', 'foxit')
         for i in range(len(cmds)):
