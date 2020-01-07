@@ -30,7 +30,7 @@ flag_path = os.path.join(base_dir, 'crash.flag')
 
 # tmp_dir = 'C:\\Users\\Vulnerability\\Desktop\\AbstractFuzz\\tmp'
 
-wait_secs = 25
+wait_secs = 42
 
 
 def log(s):
@@ -127,6 +127,7 @@ def sample_test():
                 log('ERROR, %dst time(all:3) stop windbg process failed.')
                 time.sleep(2*_)
 
+        time.sleep(2)
         # exam all the log files.
         log_paths = (adobe_log_path, foxit_log_path, wps_log_path)
         for log_path in log_paths:
