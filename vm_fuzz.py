@@ -46,6 +46,7 @@ def main():
             sample_test()
         except Exception as e:
             log(str(e)+'\n'+traceback.format_exc())
+            time.sleep(5)
 
 
 def sample_test():
@@ -65,6 +66,7 @@ def sample_test():
             time.sleep(20)
             return
         samples = [c for c in os.listdir(sample_dir) if c.endswith('.pdf') and time.time()-os.path.getmtime(os.path.join(sample_dir, c))>30 and os.path.getsize(os.path.join(sample_dir, c))>1]
+
         if len(samples) == 0:
             log('sample dir is empty, will sleep 3 minute.')
             time.sleep(180)
@@ -113,7 +115,7 @@ def sample_test():
                     break
                 else:
                     log('ERROR, %dst time(all:3) start %s failed.'%(_, cmdname))
-                    time.sleep(2)
+                    time.sleep(2*_)
         # sleep wait_secs seconds
         time.sleep(wait_secs)
         # kill windbg process
@@ -123,7 +125,7 @@ def sample_test():
                 break
             else:
                 log('ERROR, %dst time(all:3) stop windbg process failed.')
-                time.sleep(2)
+                time.sleep(2*_)
 
         # exam all the log files.
         log_paths = (adobe_log_path, foxit_log_path, wps_log_path)
@@ -139,7 +141,7 @@ def sample_test():
                     time.sleep(1)
                 except:
                     log('ERROR, %d time(all:3) move sample to crash dir failed.%s,%s'%(_, sample_path, os.path.join(crash_dir, samplename)))
-                    time.sleep(2)
+                    time.sleep(2*_)
                 else:
                     break
             for log_path in exist_log_paths:
@@ -149,7 +151,7 @@ def sample_test():
                         time.sleep(1)
                     except:
                         log('ERROR, %d time(all:3) move log(%s) to crash dir failed.' % (_, log_path))
-                        time.sleep(2)
+                        time.sleep(2*_)
                     else:
                         break
 
@@ -159,7 +161,8 @@ def sample_test():
                 try:
                     os.remove(sample_path)
                 except:
-                    log('ERROR, remove %s failed.'%sample_path)
+                    log('ERROR, %d time(all:3) remove %s failed.'%(_, sample_path))
+                    time.sleep(2*_)
                 else:
                     break
 
