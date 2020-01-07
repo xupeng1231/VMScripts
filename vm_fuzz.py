@@ -30,7 +30,7 @@ flag_path = os.path.join(base_dir, 'crash.flag')
 
 # tmp_dir = 'C:\\Users\\Vulnerability\\Desktop\\AbstractFuzz\\tmp'
 
-wait_secs = 42
+wait_secs = 100
 
 
 def log(s):
@@ -86,9 +86,9 @@ def sample_test():
                     break
         log('testing ' + sample_path)
         exist_log_paths = []
-        adobe_log_path = os.path.join(os.path.dirname(sample_path), '{sample_name}.{pdfname}.adobe.log.txt'.format(sample_name=samplename, pdfname=os.path.basename(sample_path)))
-        foxit_log_path = os.path.join(os.path.dirname(sample_path), '{sample_name}.{pdfname}.foxit.log.txt'.format(sample_name=samplename, pdfname=os.path.basename(sample_path)))
-        wps_log_path = os.path.join(os.path.dirname(sample_path), '{sample_name}.{pdfname}.wps.log.txt'.format(sample_name=samplename, pdfname=os.path.basename(sample_path)))
+        adobe_log_path = os.path.join(os.path.dirname(sample_path), '{sample_name}.adobe.log.txt'.format(sample_name=samplename))
+        foxit_log_path = os.path.join(os.path.dirname(sample_path), '{sample_name}.foxit.log.txt'.format(sample_name=samplename))
+        wps_log_path = os.path.join(os.path.dirname(sample_path), '{sample_name}.wps.log.txt'.format(sample_name=samplename))
         adobe_cmd = 'start "" "{windbg_path}"  -c ".load pykd;!py ' \
               '{windbg_script_path} {flag_path} {log_path}" -o' \
               ' "{acrord32_exe_path}" "{pdf_path}"'.format(

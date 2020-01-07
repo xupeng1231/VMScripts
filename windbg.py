@@ -16,7 +16,7 @@ def log(log_str):
 
 # this script run most 20 seconds
 enter_time = time.time()
-expire_time = enter_time + 30
+expire_time = enter_time + 300
 
 flag_path = sys.argv[1]
 log_path = sys.argv[2]
