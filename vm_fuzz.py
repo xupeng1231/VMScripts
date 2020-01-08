@@ -30,7 +30,7 @@ flag_path = os.path.join(base_dir, 'crash.flag')
 
 # tmp_dir = 'C:\\Users\\Vulnerability\\Desktop\\AbstractFuzz\\tmp'
 
-wait_secs = 100
+wait_secs = 80
 
 
 def log(s):
