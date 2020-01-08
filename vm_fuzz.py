@@ -104,7 +104,7 @@ def sample_test():
                     ' "{wps_exe_path}" "{pdf_path}"'.format(
             windbg_path=windbg_path, windbg_all_process_script_path=windbg_all_process_script_path,
             flag_path=flag_path, log_path=wps_log_path, wps_exe_path=wps_exe_path, pdf_path=sample_path)
-        cmds = (adobe_cmd, foxit_cmd)
+        cmds = (adobe_cmd,)
         cmd_names = ('adobe', 'foxit')
         for i in range(len(cmds)):
             cmd, cmdname = cmds[i], cmd_names[i]

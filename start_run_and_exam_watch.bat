@@ -3,6 +3,9 @@ set LOG_FILE=%SCRIPT_DIR_PATH%\log_boot.txt
 
 cd %SCRIPT_DIR_PATH%
 
+git pull
+timeout 20>nul
+
 start "fuzzer" python64  vm_fuzz.py
 
 :Loop
