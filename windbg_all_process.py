@@ -97,6 +97,10 @@ while True:
             continue
         elif lastevent.find("Unknown exception") > 0:
             continue
+        elif r.find('00000000=????????')>=0:
+            continue
+        elif r.find('eip=00000000')>=0:
+            continue
         else:
             save_sample(lastevent)
             break
