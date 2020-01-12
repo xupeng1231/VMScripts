@@ -106,7 +106,7 @@ while True:
         res_g=e("sxd cpr;sxd ld;sxd ct;sxd et;g")
 
         r = e("r")
-        if re.search(r'0000[\dabcdef]{4}=\?{1,8}', r):
+        if re.search(r'0000[\dabcdef]{4}=\?{1,8}', r) or r.find('eip=00000000')>=0:
             continue
         # get some information
         lastevent = e(".lastevent")
@@ -121,10 +121,6 @@ while True:
         if lastevent.find("Break instruction exception") > 0 or lastevent.find("Exit process") > 0 or r.find("ntdll!KiFastSystemCallRet") > 0:
             continue
         elif lastevent.find("Unknown exception") > 0:
-            continue
-        elif r.find('00000000=????????')>=0:
-            continue
-        elif re.search(r'0000[\dabcdef]{4}=\?{1,8}', r):
             continue
         else:
             save_sample(lastevent, r, kl2)
