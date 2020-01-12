@@ -115,7 +115,7 @@ def sample_test():
                     break
                 else:
                     log('ERROR, %dst time(all:3) start %s failed.'%(_, cmdname))
-                    time.sleep(2*_)
+                    time.sleep(2*(_+1))
         # sleep wait_secs seconds
         time.sleep(wait_secs)
         # kill windbg process
@@ -125,7 +125,7 @@ def sample_test():
                 break
             else:
                 log('ERROR, %dst time(all:3) stop windbg process failed.')
-                time.sleep(2*_)
+                time.sleep(2*(_+1))
 
         time.sleep(2)
         # exam all the log files.
@@ -142,7 +142,7 @@ def sample_test():
                     time.sleep(1)
                 except:
                     log('ERROR, %d time(all:3) move sample to crash dir failed.%s,%s'%(_, sample_path, os.path.join(crash_dir, samplename)))
-                    time.sleep(2*_)
+                    time.sleep(2*(_+1))
                 else:
                     break
             for log_path in exist_log_paths:
@@ -152,7 +152,7 @@ def sample_test():
                         time.sleep(1)
                     except:
                         log('ERROR, %d time(all:3) move log(%s) to crash dir failed.' % (_, log_path))
-                        time.sleep(2*_)
+                        time.sleep(2*(_+1))
                     else:
                         break
 
@@ -163,7 +163,7 @@ def sample_test():
                     os.remove(sample_path)
                 except:
                     log('ERROR, %d time(all:3) remove %s failed.'%(_, sample_path))
-                    time.sleep(2*_)
+                    time.sleep(2*(_+1))
                 else:
                     break
 

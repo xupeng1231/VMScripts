@@ -105,9 +105,11 @@ while True:
         # sxd some breakpoint, and go;
         res_g=e("sxd cpr;sxd ld;sxd ct;sxd et;g")
 
+        r = e("r")
+        if re.search(r'0000[\dabcdef]{4}=\?{1,8}', r):
+            continue
         # get some information
         lastevent = e(".lastevent")
-        r = e("r")
         kl2 = e("k L2")
 
         # see if any crash
@@ -122,7 +124,7 @@ while True:
             continue
         elif r.find('00000000=????????')>=0:
             continue
-        elif r.find('eip=00000000')>=0:
+        elif re.search(r'0000[\dabcdef]{4}=\?{1,8}', r):
             continue
         else:
             save_sample(lastevent, r, kl2)
