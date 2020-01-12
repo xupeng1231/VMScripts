@@ -24,7 +24,7 @@ log_path = sys.argv[2]
 e = pykd.dbgCommand
 
 
-def save_sample(who_find):
+def save_sample(who_find, r=None, kl2=None):
     global flag_path
     # saving crash flag.
     for _ in range(3):
@@ -47,26 +47,49 @@ def save_sample(who_find):
         else:
             break
 
-
-    # save a log file about this crash sample
     try:
-        logf=open(log_path, "wt")
-        logf.write("*"*40+".lastevent"+"*"*40+"\n"*2)
-        logf.write(e(".lastevent")+"\n"*4)
-        logf.write("*"*40+"r"+"*"*40+"\n"*2)
-        logf.write(e("r")+"\n"*4)
-        logf.write("*"*40+"u "+"*"*40+"\n"*2)
-        logf.write(e("u")+"\n"*4)
-        logf.write("*"*40+"ub"+"*"*40+"\n"*2)
-        logf.write(e("ub eip")+"\n"*4)
-        logf.write("*"*40+"callstack"+"*"*40+"\n"*2)
-        logf.write(e("kv")+"\n"*4)
-        logf.write("*" * 40 + "lm" + "*" * 40 + "\n" * 2)
-        logf.write(e("lm") + "\n" * 4)
+        logf = open(log_path, "wt")
+        logf.write('.lastevent:\n{}'.format(str(who_find)))
+        logf.flush()
+        logf.write('r:\n{}'.format(str(r)))
+        logf.flush()
+        logf.write('kl2:\n{}'.format(str(kl2)))
         logf.close()
     except:
         log("ERROE:crashlog create error!")
         pass
+
+    # save a log file about this crash sample
+    for _ in range(3):
+        try:
+            with open(log_path, 'ab') as logf:
+                logf.write("*" * 40 + ".lastevent" + "*" * 40 + "\n" * 2)
+                logf.flush()
+                logf.write(e(".lastevent") + "\n" * 4)
+                logf.flush()
+                logf.write("*" * 40 + "r" + "*" * 40 + "\n" * 2)
+                logf.flush()
+                logf.write(e("r") + "\n" * 4)
+                logf.flush()
+                logf.write("*" * 40 + "u " + "*" * 40 + "\n" * 2)
+                logf.flush()
+                logf.write(e("u") + "\n" * 4)
+                logf.flush()
+                logf.write("*" * 40 + "ub" + "*" * 40 + "\n" * 2)
+                logf.flush()
+                logf.write(e("ub eip") + "\n" * 4)
+                logf.flush()
+                logf.write("*" * 40 + "callstack" + "*" * 40 + "\n" * 2)
+                logf.flush()
+                logf.write(e("kv") + "\n" * 4)
+                logf.flush()
+                logf.write("*" * 40 + "lm" + "*" * 40 + "\n" * 2)
+                logf.flush()
+                logf.write(e("lm") + "\n" * 4)
+                logf.flush()
+        except:
+            pass
+
 
 while True:
     # check if expiration time arrived.
@@ -90,7 +113,7 @@ while True:
         # see if any crash
         # if break at verifier!VerifierStopMessage, maybe a page heap crash occur.
         if kl2.find("verifier!VerifierStopMessage") >= 0:
-            save_sample(lastevent)
+            save_sample(lastevent, r, kl2)
             break
         # filter some normal breakpoint, otherwise will be treated as a crash.
         if lastevent.find("Break instruction exception") > 0 or lastevent.find("Exit process") > 0 or r.find("ntdll!KiFastSystemCallRet") > 0:
@@ -102,7 +125,7 @@ while True:
         elif r.find('eip=00000000')>=0:
             continue
         else:
-            save_sample(lastevent)
+            save_sample(lastevent, r, kl2)
             break
     except :
         pass
