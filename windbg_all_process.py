@@ -63,32 +63,52 @@ def save_sample(who_find, r=None, kl2=None):
     for _ in range(3):
         try:
             with open(log_path, 'ab') as logf:
-                logf.write("*" * 40 + ".lastevent" + "*" * 40 + "\n" * 2)
-                logf.flush()
-                logf.write(e(".lastevent") + "\n" * 4)
-                logf.flush()
-                logf.write("*" * 40 + "r" + "*" * 40 + "\n" * 2)
-                logf.flush()
-                logf.write(e("r") + "\n" * 4)
-                logf.flush()
-                logf.write("*" * 40 + "u " + "*" * 40 + "\n" * 2)
-                logf.flush()
-                logf.write(e("u") + "\n" * 4)
-                logf.flush()
-                logf.write("*" * 40 + "ub" + "*" * 40 + "\n" * 2)
-                logf.flush()
-                logf.write(e("ub eip") + "\n" * 4)
-                logf.flush()
-                logf.write("*" * 40 + "callstack" + "*" * 40 + "\n" * 2)
-                logf.flush()
-                logf.write(e("kv") + "\n" * 4)
-                logf.flush()
-                logf.write("*" * 40 + "lm" + "*" * 40 + "\n" * 2)
-                logf.flush()
-                logf.write(e("lm") + "\n" * 4)
-                logf.flush()
+                try:
+                    logf.write("*" * 40 + ".lastevent" + "*" * 40 + "\n" * 2)
+                    logf.flush()
+                    logf.write(e(".lastevent") + "\n" * 4)
+                    logf.flush()
+                except:
+                    pass
+                try:
+                    logf.write("*" * 40 + "r" + "*" * 40 + "\n" * 2)
+                    logf.flush()
+                    logf.write(e("r") + "\n" * 4)
+                    logf.flush()
+                except:
+                    pass
+                try:
+                    logf.write("*" * 40 + "u " + "*" * 40 + "\n" * 2)
+                    logf.flush()
+                    logf.write(e("u") + "\n" * 4)
+                    logf.flush()
+                except:
+                    pass
+                try:
+                    logf.write("*" * 40 + "ub" + "*" * 40 + "\n" * 2)
+                    logf.flush()
+                    logf.write(e("ub eip") + "\n" * 4)
+                    logf.flush()
+                except:
+                    pass
+                try:
+                    logf.write("*" * 40 + "callstack" + "*" * 40 + "\n" * 2)
+                    logf.flush()
+                    logf.write(e("kv") + "\n" * 4)
+                    logf.flush()
+                except:
+                    pass
+                try:
+                    logf.write("*" * 40 + "lm" + "*" * 40 + "\n" * 2)
+                    logf.flush()
+                    logf.write(e("lm") + "\n" * 4)
+                    logf.flush()
+                except:
+                    pass
         except:
             pass
+        else:
+            break
 
 
 while True:
@@ -97,20 +117,16 @@ while True:
         break
 
     try:
-        # only fuzz 1 process
-        # if 1 != pykd.getCurrentProcessId():
-        #     e("g")
-        #     continue
-
         # sxd some breakpoint, and go;
         res_g=e("sxd cpr;sxd ld;sxd ct;sxd et;g")
 
-        r = e("r")
-        if re.search(r'0000[\dabcdef]{4}=\?{1,8}', r) or r.find('eip=00000000')>=0:
-            continue
+        # r = e("r")
+        # if re.search(r'0000[\dabcdef]{4}=\?{1,8}', r) or r.find('eip=00000000')>=0:
+        #     continue
         # get some information
         lastevent = e(".lastevent")
         kl2 = e("k L2")
+        r = e('r')
 
         # see if any crash
         # if break at verifier!VerifierStopMessage, maybe a page heap crash occur.
