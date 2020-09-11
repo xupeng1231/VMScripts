@@ -34,7 +34,7 @@ tmp_sample_path = os.path.join(base_dir, 'tmp_sample.pdf')
 
 # tmp_dir = 'C:\\Users\\Vulnerability\\Desktop\\AbstractFuzz\\tmp'
 
-wait_secs = 58
+wait_secs = 100
 
 
 def log(s):
