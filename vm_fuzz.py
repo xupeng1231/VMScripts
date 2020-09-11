@@ -93,15 +93,19 @@ def sample_test():
     # random choose one sample to test
     samplename = random.choice(samples)
     sample_path = os.path.join(sample_dir, samplename)
-    try:
-        if os.path.exists(tmp_sample_path):
-            os.remove(tmp_sample_path)
-        shutil.copy(sample_path, tmp_sample_path)
-    except Exception as excep:
-        print 'Exception:', excep
-        log('ERROR, remove and copy tmp_sample failed')
-        print 'ERROR, remove and copy tmp_sample failed'
-        return
+    for _ in range(3):
+        try:
+            if os.path.exists(tmp_sample_path):
+                os.remove(tmp_sample_path)
+            shutil.copy(sample_path, tmp_sample_path)
+            break
+        except Exception as excep:
+            print 'Exception:', excep
+            log('{}st time ERROR, remove and copy tmp_sample failed'.format(str(_)))
+            print '{}st time ERROR, remove and copy tmp_sample failed'.format(str(_))
+            if _ == 2:
+                return
+            time.sleep(2*(_+1))
     log('testing ' + sample_path)
     exist_log_paths = []
     adobe_log_path = os.path.join(os.path.dirname(sample_path), '{sample_name}.adobe.log.txt'.format(sample_name=samplename))
