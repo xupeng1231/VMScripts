@@ -34,7 +34,7 @@ tmp_sample_path = os.path.join(base_dir, 'tmp_sample.pdf')
 
 # tmp_dir = 'C:\\Users\\Vulnerability\\Desktop\\AbstractFuzz\\tmp'
 
-wait_secs = 100
+wait_secs = 56
 
 
 def log(s):
@@ -129,8 +129,10 @@ def sample_test():
         windbg_path=windbg_path, windbg_all_process_script_path=windbg_all_process_script_path,
         flag_path=flag_path, log_path=wps_log_path, wps_exe_path=wps_exe_path,
         pdf_path=tmp_sample_path)
-    cmds = (adobe_cmd, foxit_cmd, wps_cmd)
-    cmd_names = ('adobe', 'foxit', 'wps')
+    # cmds = (adobe_cmd, foxit_cmd, wps_cmd)
+    # cmd_names = ('adobe', 'foxit', 'wps')
+    cmds = (adobe_cmd, )
+    cmd_names = ('adobe', )
     for i in range(len(cmds)):
         cmd, cmdname = cmds[i], cmd_names[i]
         for _ in range(3):
