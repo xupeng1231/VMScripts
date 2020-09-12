@@ -34,7 +34,8 @@ tmp_sample_path = os.path.join(base_dir, 'tmp_sample.pdf')
 
 # tmp_dir = 'C:\\Users\\Vulnerability\\Desktop\\AbstractFuzz\\tmp'
 
-wait_secs = 56
+min_wait_secs = 40
+max_wait_secs = 120
 
 
 def log(s):
@@ -131,25 +132,27 @@ def sample_test():
         pdf_path=tmp_sample_path)
     # cmds = (adobe_cmd, foxit_cmd, wps_cmd)
     # cmd_names = ('adobe', 'foxit', 'wps')
-    cmds = (adobe_cmd, )
-    cmd_names = ('adobe', )
-    for i in range(len(cmds)):
-        cmd, cmdname = cmds[i], cmd_names[i]
-        for _ in range(3):
-            res = os.system(cmd)
-            if 0 == res:
-                time.sleep(1)
-                break
-            else:
-                log('ERROR, %dst time(all:3) start %s failed.'%(_, cmdname))
-                time.sleep(2*(_+1))
+    # cmds = (adobe_cmd, )
+    # cmd_names = ('adobe', )
+    # for i in range(len(cmds)):
+    #     cmd, cmdname = cmds[i], cmd_names[i]
+    for _ in range(3):
+        res = os.system(adobe_cmd)
+        if 0 == res:
+            time.sleep(1)
+            break
+        else:
+            log('ERROR, %dst time(all:3) start %s failed.'%(_, 'adobe'))
+            time.sleep(2*(_+1))
     # sleep wait_secs seconds
     wait_start_time = time.time()
     while True:
-        close_acrobat_alert()
-        time.sleep(0.1)
-        if time.time()-wait_start_time > wait_secs:
+        jswindow_exist = close_acrobat_alert()
+        if time.time()-wait_start_time > max_wait_secs:
             break
+        if time.time()-wait_start_time > min_wait_secs and not jswindow_exist:
+            break
+        time.sleep(0.1)
     # kill windbg process
     for _ in range(3):
         res = os.system('taskkill /F /IM windbg.exe')

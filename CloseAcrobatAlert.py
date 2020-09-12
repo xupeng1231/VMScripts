@@ -12,9 +12,14 @@ def get_child_windows(parent):
     win32gui.EnumChildWindows(parent, lambda hwnd, param: param.append(hwnd),  hwndChildList)
     return hwndChildList
 
-
+js_window_exist=False
 def close(hwnd, mouse):
-    global config_contents
+    global js_window_exist
+    if IsWindow(hwnd) and IsWindowVisible(hwnd):
+        windowtext =GetWindowText(hwnd).decode('gbk')
+        if windowtext.find('JavaScript')>=0 or windowtext.find(u'µ÷ÊÔ³ÌÐò')>=0:
+            js_window_exist = True
+
     if IsWindow(hwnd) and IsWindowEnabled(hwnd) and IsWindowVisible(hwnd):
         # classname =GetClassName(hwnd)
         windowtext =GetWindowText(hwnd).decode('gbk')
@@ -28,13 +33,19 @@ def close(hwnd, mouse):
 
 
 def close_acrobat_alert():
+    global js_window_exist
+    js_window_exist = False
     EnumWindows(close, 0)
+    return js_window_exist
 
 
 def main():
+    global js_window_exist
     while True:
+        js_window_exist = False
         close_acrobat_alert()
         time.sleep(0.1)
+        print js_window_exist
 
 
 if __name__ == '__main__':
