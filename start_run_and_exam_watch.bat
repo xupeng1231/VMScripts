@@ -33,7 +33,7 @@ exit /b 0
     git pull
     timeout 5>nul
     start "fuzzer" python64 vm_fuzz.py
-    exit /b /0
+    goto:eof
 
 :restart
     shutdown /r /t 2
