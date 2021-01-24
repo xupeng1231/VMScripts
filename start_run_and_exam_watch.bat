@@ -11,12 +11,12 @@ start "fuzzer" python64  vm_fuzz.py
 
 :Loop
     del alive_flag\vm_fuzz.alive.flag
-    timeout 30>nul
+    timeout 30 >nul
     if exist repo_need_update.flag (
         del repo_need_update.flag
-        goto :updaterepo
+        call:updaterepo
     )
-    timeout 300>nul
+    timeout 300 >nul
     if not exist alive_flag\vm_fuzz.alive.flag (
         echo %date% %time%, the vm_fuzz.py maybe zobie, will restart vm. >> %LOG_FILE%
         goto :restart
