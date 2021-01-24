@@ -12,7 +12,7 @@ start "fuzzer" python64  vm_fuzz.py
 :Loop
     del alive_flag\vm_fuzz.alive.flag
     timeout 30>nul
-    if exist repo_need_update.flag(
+    if exist repo_need_update.flag (
         del repo_need_update.flag
         goto :updaterepo
     )
