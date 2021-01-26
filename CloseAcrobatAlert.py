@@ -23,11 +23,11 @@ def close(hwnd, mouse):
     if IsWindow(hwnd) and IsWindowEnabled(hwnd) and IsWindowVisible(hwnd):
         # classname =GetClassName(hwnd)
         windowtext =GetWindowText(hwnd).decode('gbk')
-        if windowtext.find('Acrobat')>=0:
+        if windowtext.find('Acrobat')>=0 or windowtext.find(u'福昕阅读器')>=0:
             cl = get_child_windows(hwnd)
             for c in cl:
                 t = GetWindowText(c).decode('gbk')
-                if t == u'确定':
+                if t == u'确定' or t.startswith(u'确定'):
                     win32gui.SendMessage(c, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0)
                     win32gui.SendMessage(c, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0)
 
