@@ -108,6 +108,7 @@ def save_sample(who_find, r=None, kl2=None):
         except:
             pass
 
+fuzz_target = 'foxit'
 
 while True:
     # check if expiration time arrived.
@@ -116,9 +117,10 @@ while True:
 
     try:
         # only fuzz 1 process
-        if 1 != pykd.getCurrentProcessId():
-            e("g")
-            continue
+        if fuzz_target == 'adobe':
+            if 1 != pykd.getCurrentProcessId():
+                e("g")
+                continue
 
         # sxd some breakpoint, and go;
         res_g=e("sxd cpr;sxd ld;sxd ct;sxd et;g")
