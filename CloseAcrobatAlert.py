@@ -45,7 +45,6 @@ def main():
         js_window_exist = False
         close_acrobat_alert()
         time.sleep(0.1)
-        print js_window_exist
 
 
 if __name__ == '__main__':
