@@ -7,6 +7,8 @@ cd %SCRIPT_DIR_PATH%
 :: git pull
 call:sleep10s
 
+start "closer" python64 CloseAcrobatAlert.py
+call:sleep5s
 start "fuzzer" python64  vm_fuzz.py
 
 :Loop
@@ -31,8 +33,14 @@ exit /b 0
     taskkill /F /IM python64.exe
     taskkill /F /IM windbg.exe
     git pull
-    timeout 5>nul
+    call:sleep5s
+    start "closer" python64 CloseAcrobatAlert.py
+    call:sleep5s
     start "fuzzer" python64 vm_fuzz.py
+    goto:eof
+
+:sleep5s
+    python64 -c "import time;time.sleep(5);"
     goto:eof
 
 :sleep10s
