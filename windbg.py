@@ -108,7 +108,8 @@ def save_sample(who_find, r=None, kl2=None):
         except:
             pass
 
-fuzz_target = 'foxit'
+# fuzz_target = 'foxit'
+fuzz_target = 'adobe'
 
 while True:
     # check if expiration time arrived.
