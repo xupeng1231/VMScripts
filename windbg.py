@@ -49,11 +49,11 @@ def save_sample(who_find, r=None, kl2=None):
 
     try:
         logf = open(log_path, "wt")
-        logf.write('.lastevent:\n{}'.format(str(who_find)))
+        logf.write('.lastevent:\n{}\n'.format(str(who_find)))
         logf.flush()
-        logf.write('r:\n{}'.format(str(r)))
+        logf.write('r:\n{}\n'.format(str(r)))
         logf.flush()
-        logf.write('kl2:\n{}'.format(str(kl2)))
+        logf.write('kl2:\n{}\n'.format(str(kl2)))
         logf.close()
     except:
         log("ERROE:crashlog create error!")
@@ -88,6 +88,13 @@ def save_sample(who_find, r=None, kl2=None):
                     logf.write("*" * 40 + "ub" + "*" * 40 + "\n" * 2)
                     logf.flush()
                     logf.write(e("ub eip") + "\n" * 4)
+                    logf.flush()
+                except:
+                    pass
+                try:
+                    logf.write("*" * 40 + ".exr -1" + "*" * 40 + "\n" * 2)
+                    logf.flush()
+                    logf.write(e(".exr -1") + "\n" * 4)
                     logf.flush()
                 except:
                     pass
