@@ -1,5 +1,6 @@
 set SCRIPT_DIR_PATH=C:\Users\Vulnerability\Desktop\AbstractFuzz\scripts
 set LOG_FILE=%SCRIPT_DIR_PATH%\log_boot.txt
+set SHARED_SCRIPTS=Z:\scripts
 
 cd %SCRIPT_DIR_PATH%
 
@@ -32,10 +33,7 @@ exit /b 0
     taskkill /F /IM windbg.exe
     taskkill /F /IM python64.exe
     taskkill /F /IM windbg.exe
-    git pull
-    git pull
-    git pull
-    git pull
+    copy /Y %SHARED_SCRIPTS%\* .\
     ::call:sleep5s
     ::start "closer" python64 CloseAcrobatAlert.py
     call:sleep5s
