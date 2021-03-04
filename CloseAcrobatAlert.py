@@ -23,7 +23,9 @@ def close(hwnd, mouse):
     if IsWindow(hwnd) and IsWindowEnabled(hwnd) and IsWindowVisible(hwnd):
         # classname =GetClassName(hwnd)
         windowtext =GetWindowText(hwnd).decode('gbk')
-        if windowtext.find('Acrobat')>=0 or windowtext.find(u'¸£ê¿ÔÄ¶ÁÆ÷')>=0 or windowtext.startswith('Foxit Reader'):
+        if windowtext.find('Acrobat') >= 0 \
+                or windowtext.find(u'¾¯¸æ') >= 0 and windowtext.find('JavaScript') >= 0 \
+                or windowtext.find(u'¸£ê¿ÔÄ¶ÁÆ÷')>=0 or windowtext.startswith('Foxit Reader'):
             cl = get_child_windows(hwnd)
             for c in cl:
                 t = GetWindowText(c).decode('gbk')
