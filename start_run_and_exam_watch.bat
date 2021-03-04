@@ -33,6 +33,9 @@ exit /b 0
     taskkill /F /IM python64.exe
     taskkill /F /IM windbg.exe
     git pull
+    git pull
+    git pull
+    git pull
     ::call:sleep5s
     ::start "closer" python64 CloseAcrobatAlert.py
     call:sleep5s
