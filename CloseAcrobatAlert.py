@@ -23,6 +23,19 @@ def close(hwnd, mouse):
     if IsWindow(hwnd) and IsWindowEnabled(hwnd) and IsWindowVisible(hwnd):
         # classname =GetClassName(hwnd)
         windowtext =GetWindowText(hwnd).decode('gbk')
+        if windowtext.find(u'安全性警告')>=0 or windowtext.find(u'安全性禁止')>=0:
+            cl = get_child_windows(hwnd)
+            for c in cl:
+                t = GetWindowText(c).decode('gbk')
+                if t.startswith(u'禁止'):
+                    win32gui.SendMessage(c, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0)
+                    win32gui.SendMessage(c, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0)
+                elif t.startswith(u'确定'):
+                    win32gui.SendMessage(c, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0)
+                    win32gui.SendMessage(c, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0)
+                    print 'close queding'
+                print t
+                pass
         if windowtext.find('Acrobat') >= 0 \
                 or windowtext.find(u'警告') >= 0 and windowtext.find('JavaScript') >= 0 \
                 or windowtext.find(u'福昕阅读器')>=0 or windowtext.startswith('Foxit Reader'):
