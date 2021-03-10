@@ -12,6 +12,12 @@ def get_child_windows(parent):
     win32gui.EnumChildWindows(parent, lambda hwnd, param: param.append(hwnd),  hwndChildList)
     return hwndChildList
 
+def click_button(c):
+    try:
+        win32gui.SendMessageTimeout(c, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0, win32con.SMTO_NORMAL, 1000)
+        win32gui.SendMessageTimeout(c, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0, win32con.SMTO_NORMAL, 1000)
+    except Exception as e:
+        print e
 
 def close(hwnd, mouse):
     global js_window_exist
@@ -25,22 +31,18 @@ def close(hwnd, mouse):
         windowtext =GetWindowText(hwnd).decode('gbk')
         if windowtext.find(u'添加附件')>=0:
             cl = get_child_windows(hwnd)
-            print '*'*50
             for c in cl:
                 t = GetWindowText(c).decode('gbk')
                 if t.find(u'取消')>=0:
-                    win32gui.SendMessage(c, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0)
-                    win32gui.SendMessage(c, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0)
+                    click_button(c)
         if windowtext.find(u'安全性警告')>=0 or windowtext.find(u'安全性禁止')>=0:
             cl = get_child_windows(hwnd)
             for c in cl:
                 t = GetWindowText(c).decode('gbk')
                 if t.startswith(u'禁止'):
-                    win32gui.SendMessage(c, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0)
-                    win32gui.SendMessage(c, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0)
+                    click_button(c)
                 elif t.startswith(u'确定'):
-                    win32gui.SendMessage(c, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0)
-                    win32gui.SendMessage(c, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0)
+                    click_button(c)
                     print 'close queding'
                 pass
         if windowtext.find('Acrobat') >= 0 \
@@ -50,8 +52,7 @@ def close(hwnd, mouse):
             for c in cl:
                 t = GetWindowText(c).decode('gbk')
                 if t == u'确定' or t.startswith(u'确定') or t.startswith('&OK'):
-                    win32gui.SendMessage(c, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0)
-                    win32gui.SendMessage(c, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0)
+                    click_button(c)
 
 
 def close_acrobat_alert():
