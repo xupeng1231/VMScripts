@@ -121,13 +121,13 @@ def sample_test():
     foxit_cmd = 'start "" "{windbg_path}"  -c ".load pykd;!py ' \
           '{windbg_all_process_script_path} {flag_path} {log_path}" -o' \
           ' "{foxit_exe_path}" "{pdf_path}"'.format(
-             windbg_path=windbg_path, windbg_all_process_script_path=windbg_all_process_script_path,
+             windbg_path=windbg_path, windbg_all_process_script_path=windbg_script_path,
             flag_path=flag_path, log_path=foxit_log_path, foxit_exe_path=foxit_exe_path,
             pdf_path=tmp_sample_path)
     wps_cmd = 'start "" "{windbg_path}"  -c ".load pykd;!py ' \
                 '{windbg_all_process_script_path} {flag_path} {log_path}" -o' \
                 ' "{wps_exe_path}" "{pdf_path}"'.format(
-        windbg_path=windbg_path, windbg_all_process_script_path=windbg_all_process_script_path,
+        windbg_path=windbg_path, windbg_all_process_script_path=windbg_script_path,
         flag_path=flag_path, log_path=wps_log_path, wps_exe_path=wps_exe_path,
         pdf_path=tmp_sample_path)
     # cmds = (adobe_cmd, foxit_cmd, wps_cmd)
@@ -137,8 +137,8 @@ def sample_test():
     # for i in range(len(cmds)):
     #     cmd, cmdname = cmds[i], cmd_names[i]
     for _ in range(3):
-        res = os.system(adobe_cmd)
-        # res = os.system(foxit_cmd)
+        # res = os.system(adobe_cmd)
+        res = os.system(foxit_cmd)
         if 0 == res:
             time.sleep(1)
             break
