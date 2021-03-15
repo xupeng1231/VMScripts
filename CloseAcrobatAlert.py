@@ -51,7 +51,8 @@ def close(hwnd, mouse):
             cl = get_child_windows(hwnd)
             for c in cl:
                 t = GetWindowText(c).decode('gbk')
-                if t == u'确定' or t.startswith(u'确定') or t.startswith('&OK'):
+                if t == u'确定' or t.startswith(u'确定') or\
+                        t.startswith('&OK') or t.startswith('OK') or t.startswith('&Yes'):
                     click_button(c)
 
 
