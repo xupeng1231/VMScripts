@@ -8,7 +8,7 @@ cd %SCRIPT_DIR_PATH%
 :: git pull
 call:sleep10s
 
-z:\\scripts\\clear_disk.bat
+start "" z:\\scripts\\clear_disk.bat
 
 ::start "closer" python64 CloseAcrobatAlert.py
 ::call:sleep5s
