@@ -1,0 +1,1 @@
+rmdir /S /Q C:\\Users\\Vulnerability\\AppData\\Local\\Temp\\$frd_

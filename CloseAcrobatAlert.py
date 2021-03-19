@@ -26,9 +26,22 @@ def close(hwnd, mouse):
         if windowtext.find('JavaScript')>=0 or windowtext.find(u'调试程序')>=0:
             js_window_exist = True
 
-    if IsWindow(hwnd) and IsWindowEnabled(hwnd) and IsWindowVisible(hwnd):
+    # if IsWindow(hwnd) and IsWindowEnabled(hwnd) and IsWindowVisible(hwnd):
+    if True:
         # classname =GetClassName(hwnd)
         windowtext =GetWindowText(hwnd).decode('gbk')
+        # if windowtext.find(u'用户帐户控制')>=0 or windowtext.find('Program Manager')>=0:
+        #     cl = get_child_windows(hwnd)
+        #     for c in cl:
+        #         t = GetWindowText(c).decode('gbk')
+        #         if t.find(u'否')>=0:
+        #             click_button(c)
+        if windowtext.find('Security')>=0 and windowtext.find('Warning')>=0:
+            cl = get_child_windows(hwnd)
+            for c in cl:
+                t = GetWindowText(c).decode('gbk')
+                if t.find('Block')>=0:
+                    click_button(c)
         if windowtext.find(u'添加附件')>=0:
             cl = get_child_windows(hwnd)
             for c in cl:
