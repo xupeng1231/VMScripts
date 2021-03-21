@@ -137,8 +137,8 @@ def sample_test():
     # for i in range(len(cmds)):
     #     cmd, cmdname = cmds[i], cmd_names[i]
     for _ in range(3):
-        # res = os.system(adobe_cmd)
-        res = os.system(foxit_cmd)
+        res = os.system(adobe_cmd)
+        # res = os.system(foxit_cmd)
         if 0 == res:
             time.sleep(1)
             break
